@@ -43,7 +43,7 @@ function filtrarRol() {
 
 function addSubjectToModule(cont, id_module) {
  
-    let id_subject = document.getElementById(cont).value;
+    var id_subject = document.getElementById(cont).value;
     let data = [id_subject, id_module];
 
     $.ajax({
@@ -71,7 +71,7 @@ function addSubjectToModule(cont, id_module) {
 
             //Borro la asignatura del select
             let select = document.getElementById(cont);
-            let option = document.getElementById("option"+id_subject);
+            let option = document.getElementById("option"+id_subject+cont);
             select.removeChild(option);
         }
 

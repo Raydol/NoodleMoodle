@@ -32,7 +32,7 @@
         <select id="{{$cont}}" name="subject">
         <option value="nothing"></option>
           @foreach ($module->subjectsSelect as $subject)
-        <option value="{{$subject->Id}}" id="option{{$subject->Id}}">{{$subject->NombreAsignatura}}</option>
+        <option value="{{$subject->Id}}" id="option{{$subject->Id}}{{$cont}}">{{$subject->NombreAsignatura}}</option>
           @endforeach
         </select>
         <input type="button" value="Añadir" onclick="addSubjectToModule({{$cont}}, {{$module->Id}});">
