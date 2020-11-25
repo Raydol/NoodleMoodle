@@ -136,13 +136,14 @@ class ModuleController extends Controller
 
       /*
         Estabezco el título de la ventana, compruebo si el usuario está vinculado al módulo o no y 
-        renderizo la vista envíandole las
-        variables que necesito en la misma
+        renderizo la vista envíandole las variables que necesito en la misma
       */
         $title = $modulo->NombreModulo;
         $currentUser = $user->getUserByEmail($_SESSION['email']);
         $currentUser->userBelongsToModule = $usermodule->userBelongsToModule($currentUser->Id, $id_module);
         return view('moduledetails', compact('title', 'modulo', 'subjects', 'professors', 'students', 'currentUser', 'usersubject'));
     }
+
+    
 
 }

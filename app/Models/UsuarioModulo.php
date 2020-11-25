@@ -22,4 +22,11 @@ class UsuarioModulo extends Model
         return (UsuarioModulo::where('IdModulo', $id_modulo)
         ->where('IdUsuario', $id_usuario)->first() != null) ? true : false;
     }
+
+    public function addUserToModule($id_user, $id_module) {
+        DB::table('usuariosmodulos')->insert([
+            'IdUsuario' => $id_user,
+            'IdModulo' => $id_module
+        ]);
+    }
 }

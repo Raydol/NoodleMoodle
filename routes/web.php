@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\UserModuleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,5 +76,10 @@ Route::post('/user/delete', [UserController::class, 'deleteUser']);
 //Module details
 Route::get('/module/{idModule}', [ModuleController::class, 'moduleDetails']);
 
+//Join module
+Route::get('/module/{idModule}/join', [UserModuleController::class, 'joinModule']);
+
+//Unjoin module
+Route::get('/module/{idModule}/unjoin', [UserModuleController::class, 'unjoinModule']);
 
 

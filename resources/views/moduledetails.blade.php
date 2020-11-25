@@ -6,7 +6,9 @@
 <h3>{{$modulo->NombreModulo}}</h3>
 
 @if (!$currentUser->userBelongsToModule)
- <button>Unirte al módulo</button>
+ <button type="button" class="btn btn-outline-primary" onclick="joinModule({{$modulo->Id}});">
+    <i class="fas fa-sign-in-alt"></i> Unirte al módulo
+</button>
 @endif
 
 <table class="table mt-4">
@@ -108,4 +110,5 @@
 
 </table>
 
+<script src="{{config('app.name')}}/../resources/js/functions.js"></script>
 @endsection
