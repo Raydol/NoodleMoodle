@@ -62,6 +62,9 @@ Route::get('/subjectslist', [SubjectController::class, 'subjectslist']);
 Route::get('/subject/new', [SubjectController::class, 'subjectForm']);
 Route::post('/subject/new', [SubjectController::class, 'addSubject']);
 
+//Insert Module
+Route::get('/module/new', [ModuleController::class, 'moduleForm']);
+Route::post('/module/new', [ModuleController::class, 'addModule']);
 
 //Generate Activation Code
 Route::get('/subject/new/generatecode', [SubjectController::class, 'generateCode']);

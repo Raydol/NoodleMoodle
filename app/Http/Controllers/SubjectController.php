@@ -31,7 +31,7 @@ class SubjectController extends Controller
     public function subjectForm() {
         $title = "Nueva asignatura";
         $nombreAsignatura = $codeError = $subjectError = "";
-         return view('subjectform', compact('title', 'nombreAsignatura', 'codeError', 'subjectError'));
+        return view('subjectform', compact('title', 'nombreAsignatura', 'codeError', 'subjectError'));
     }
 
     public function addSubject() {
@@ -51,7 +51,7 @@ class SubjectController extends Controller
         }
 
         if ($nombreAsignatura != "") {
-            if ($subject->subjectExists($nombreAsignatura)) {
+            if ($subject->subjectExists(strtoupper($nombreAsignatura))) {
                 $subjectError = "*La asignatura que ha introducido ya existe";
                 $problems = true;
             }
@@ -64,7 +64,7 @@ class SubjectController extends Controller
         if ($problems) {
             return view('subjectform', compact('title', 'nombreAsignatura', 'codeError', 'subjectError'));
         } else {
-            $subject->addSubject($nombreAsignatura, $codigoActivacion);
+            $subject->addSubject(strtoupper($nombreAsignatura), $codigoActivacion);
             return Redirect::to(config('app.url').config('app.name')."/subjectslist");
         }
         

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Modulo extends Model
 {
@@ -21,5 +22,15 @@ class Modulo extends Model
 
     public function getModules() {
         return Modulo::all();
+    }
+
+    public function moduleExists($nombreModulo) {
+        return count(Modulo::where('NombreModulo', $nombreModulo)->get()) > 0 ? true : false;
+    }
+
+    public function addModule($nombreModulo) {
+        DB::table('modulos')->insert([
+            'NombreModulo' => $nombreModulo
+        ]);
     }
 }

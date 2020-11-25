@@ -8,6 +8,9 @@
   $cont = 0;
 ?>
 
+<a class="btn btn-outline-dark float-right mt-3 mr-5 mb-2" href="{{config('app.url')}}{{config('app.name')}}/module/new">
+  <i class="fas fa-plus"></i> Añadir módulo
+</a>
 
 <table class="table mt-3">
     <thead class="bg-dark text-white">

@@ -8,6 +8,7 @@ use App\Models\Modulo;
 use App\Models\Usuario;
 use App\Models\UsuarioModulo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ModuleController extends Controller
 {
@@ -68,6 +69,40 @@ class ModuleController extends Controller
 
             $subjectmodule->addSubjectModule($id_subject, $id_module);
             return json_encode($subject->getSubjectById($id_subject));
+        }
+    }
+
+    public function moduleForm() {
+        $title = "Nuevo módulo";
+        $nombreModulo = $moduleError = "";
+        return view('moduleform', compact('title', 'nombreModulo', 'moduleError'));
+    }
+
+
+    public function addModule() {
+        $title = "Nuevo Módulo";
+        $moduleError = "";
+        $problems = false;
+        $nombreModulo = $_POST["nombreModulo"] ?? "";
+        $module = new Modulo;
+
+        //Comprobaciones
+
+        if ($nombreModulo != "") {
+            if ($module->moduleExists(strtoupper($nombreModulo))) {
+                $problems = true;
+                $moduleError = "* El módulo que ha introducido ya existe";
+            }
+        } else {
+            $problems = true;
+            $moduleError = "* El nombre del módulo no puede estar vacio";
+        }
+
+        if ($problems) {
+            return view('moduleform', compact('title', 'moduleError', 'nombreModulo'));
+        } else {
+            $module->addModule(strtoupper($nombreModulo));
+            return Redirect::to(config('app.url').config('app.name')."/moduleslist");
         }
     }
 
