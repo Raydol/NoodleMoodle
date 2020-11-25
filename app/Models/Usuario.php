@@ -7,6 +7,7 @@ use DateTimeZone;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 class Usuario extends Model
 {
@@ -52,16 +53,30 @@ class Usuario extends Model
     }
 
     public function getAllStudents() {
-        return Usuario::select()
-        ->join('roles', 'roles.Id', '=', 'usuarios.IdRol')
-        ->where('roles.NombreRol', '=', 'alumno')
-        ->get();
+        $query = "select * from usuarios where usuarios.IdRol = 
+        (SELECT roles.Id from roles where roles.NombreRol = 'alumno')";
+
+        return DB::select($query);
     }
 
     public function getAllProfessors() {
-        return Usuario::select()
-        ->join('roles', 'roles.Id', '=', 'usuarios.IdRol')
-        ->where('roles.NombreRol', '=', 'profesor')
-        ->get();
+        $query = "select * from usuarios where usuarios.IdRol = 
+        (SELECT roles.Id from roles where roles.NombreRol = 'profesor')";
+
+        return DB::select($query);
+    }
+
+    public function getAmountOfStudentsPerSubject($id_subject) {
+        
+        $query = "select * from usuarios, roles, usuariosasignaturas 
+        where usuarios.IdRol = roles.Id and roles.NombreRol = 'alumno'
+        and usuariosasignaturas.IdUsuario = usuarios.Id and usuariosasignaturas.IdAsignatura = ?";
+
+        return count(DB::select($query, [$id_subject]));
+        
+    }
+
+    public function deleteUser($id) {
+        DB::table('usuarios')->delete($id);
     }
 }

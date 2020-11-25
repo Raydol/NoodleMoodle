@@ -86,7 +86,7 @@
 
         <div class="container-fluid">
             <nav class="navbar navbar-light bg-light">
-                <a class="navbar-brand" href="<?=$_ENV['APP_NAME']?>">
+            <a class="navbar-brand" href="{{config('app.name')}}">
                     <img width="50" height="50"
                     src="https://pikwizard.com/photos/plate-meal-food--5d9c5c35695b714113ccd7e5bca6b5be-m.jpg"
                         class="d-inline-block align-top rounded-circle" alt="" loading="lazy">
@@ -99,25 +99,25 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-link active" href="<?=$_ENV['APP_NAME']?>">Home</a>
+                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}">Home</a>
                 
         @if (!isset($_SESSION["email"]))
-                <a class="nav-link" href="<?=$_ENV['APP_NAME']?>/login">Login</a>
-                <a class="nav-link" href="<?=$_ENV['APP_NAME']?>/register">Register</a>
+                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/login">Login</a>
+                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/register">Register</a>
             </div>
           </nav>
         @else
             @if ($_SESSION["email"] === 'admin@admin.admin')
-                <a class="nav-link" href="{{$_ENV["APP_URL"]}}{{$_ENV['APP_NAME']}}/moduleslist">Módulos</a>
-                <a class="nav-link" href="">Asignaturas</a>
-                <a class="nav-link" href="{{$_ENV["APP_URL"]}}{{$_ENV['APP_NAME']}}/userslist">Usuarios</a>
-                <a class="nav-link" href="{{$_ENV["APP_URL"]}}{{$_ENV['APP_NAME']}}/profile/{{$_SESSION["email"]}}">Mi perfil</a>
-                <a class="nav-link" href="{{$_ENV["APP_URL"]}}{{$_ENV['APP_NAME']}}/logout">Cerrar sesión</a>
+                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/moduleslist">Módulos</a>
+                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/subjectslist">Asignaturas</a>
+                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/userslist">Usuarios</a>
+                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/profile/{{$_SESSION["email"]}}">Mi perfil</a>
+                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/logout">Cerrar sesión</a>
             @else
-                <a class="nav-link" href="{{$_ENV["APP_URL"]}}{{$_ENV['APP_NAME']}}/modules/{{$_SESSION["email"]}}">Mis módulos</a>
-                <a class="nav-link" href="{{$_ENV["APP_URL"]}}{{$_ENV['APP_NAME']}}/subjects">Mis asignaturas</a>
-                <a class="nav-link" href="{{$_ENV["APP_URL"]}}{{$_ENV['APP_NAME']}}/profile/{{$_SESSION["email"]}}">Mi perfil</a>
-                <a class="nav-link" href="{{$_ENV["APP_URL"]}}{{$_ENV['APP_NAME']}}/logout">Cerrar sesión</a>
+                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/modules/{{$_SESSION["email"]}}">Mis módulos</a>
+                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/subjects">Mis asignaturas</a>
+                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/profile/{{$_SESSION["email"]}}">Mi perfil</a>
+                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/logout">Cerrar sesión</a>
             @endif
         @endif
     </div>

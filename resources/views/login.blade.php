@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="well well-sm">
-            <form class="form-horizontal" method="post" action="{{$_ENV['APP_URL']}}{{$_ENV["APP_NAME"]}}/login">
+            <form class="form-horizontal" method="post" action="{{config('app.url')}}{{config('app.name')}}/login">
                     @csrf
                     <fieldset>
                         <legend class="text-center header">Login</legend>

@@ -20,5 +20,9 @@ class AsignaturaModulo extends Model
 
         return DB::insert($query, [$id_subject, $id_module]);
     }
+
+    public function getAmountOfModulesPerSubject($id_subject) {
+        return AsignaturaModulo::where('IdAsignatura', $id_subject)->count();
+    }
     
 }

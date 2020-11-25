@@ -1,4 +1,4 @@
-function filtrarRol() {
+function filtrarRol(esPrimeraVez) {
     let value = document.getElementById('rol').value;
 
     $.ajax({
@@ -32,8 +32,23 @@ function filtrarRol() {
             td8.innerHTML = user.FechaPrimerAcceso;
             let td9 = document.createElement("td");
             td9.innerHTML = user.FechaUltimoAcceso;
+
+            //Columna para borrar un usuario
             let td10 = document.createElement("td");
-            td10.innerHTML = "Acciones";
+            let enlacePapelera = document.createElement("a")
+            let iconoPapelera = document.createElement("i")
+
+            td10.className += " text-center"
+
+            enlacePapelera.setAttribute("href", "javascript:void(0)")
+            enlacePapelera.className += " text-dark"
+            enlacePapelera.setAttribute("style", "text-decoration: none")
+            enlacePapelera.setAttribute("onclick", "deleteUser(" + user.Id +")")
+
+            iconoPapelera.className += " fas fa-trash-alt"
+
+            enlacePapelera.append(iconoPapelera)
+            td10.append(enlacePapelera)
 
             tr.append(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10);
             tb.appendChild(tr);
@@ -78,3 +93,142 @@ function addSubjectToModule(cont, id_module) {
     });
 
 }
+
+function generateCode() {
+
+    $.ajax({
+        url: '/NoodleMoodle/public/subject/new/generatecode',
+        method: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    }).done(function(res) {
+
+        //Primero vacíamos tanto el span como el input del código de activación del formulario
+        document.getElementById("generatedCode").innerHTML = "";
+        document.getElementById("inputGeneratedCode").innerHTML = "";
+
+        //Asignamos el valor que nos viene del servidor al span y al input
+        document.getElementById("generatedCode").innerHTML = res
+        document.getElementById("inputGeneratedCode").value = res
+
+    })
+
+}
+
+function deleteUser(id) {
+    if(confirm("Desea realmente eliminar este usuario")) {
+        let filtro = document.getElementById("rol").value
+        let data = [id, filtro]
+        $.ajax({
+            url: '/NoodleMoodle/public/user/delete',
+            method: 'POST',
+            data: JSON.stringify(data),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }).done(function(res) {
+            let tb = document.getElementById("tableBody")
+            tb.innerHTML = "";
+            var users = JSON.parse(res)
+
+            for(let user of users) {
+                var tr = document.createElement("tr");
+                let td1 = document.createElement("td");
+                td1.innerHTML = user.Nombre;
+                let td2 = document.createElement("td");
+                td2.innerHTML = user.Apellidos;
+                let td3 = document.createElement("td");
+                td3.innerHTML = user.Email;
+                let td4 = document.createElement("td");
+                td4.innerHTML = user.Telefono;
+                let td5 = document.createElement("td");
+                td5.innerHTML = user.Ciudad;
+                let td6 = document.createElement("td");
+                td6.innerHTML = user.ComunidadAutonoma;
+                let td7 = document.createElement("td");
+                td7.innerHTML = user.RolName;
+                let td8 = document.createElement("td");
+                td8.innerHTML = user.FechaPrimerAcceso;
+                let td9 = document.createElement("td");
+                td9.innerHTML = user.FechaUltimoAcceso;
+
+                //Columna para borrar un usuario
+                let td10 = document.createElement("td");
+                let enlacePapelera = document.createElement("a")
+                let iconoPapelera = document.createElement("i")
+
+                td10.className += " text-center"
+
+                enlacePapelera.setAttribute("href", "javascript:void(0)")
+                enlacePapelera.className += " text-dark"
+                enlacePapelera.setAttribute("style", "text-decoration: none")
+                enlacePapelera.setAttribute("onclick", "deleteUser(" + user.Id +")")
+
+                iconoPapelera.className += " fas fa-trash-alt"
+
+                enlacePapelera.append(iconoPapelera)
+                td10.append(enlacePapelera)
+                
+                tr.append(td1, td2, td3, td4, td5, td6, td7, td8, td9, td10);
+                tb.appendChild(tr);
+            }
+        })
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*function filterSubject() {
+    let value = document.getElementById('filter_subject').value
+
+    $.ajax({
+        url: '/NoodleMoodle/public/subjectslist',
+        method: 'POST',
+        data: JSON.stringify(value),
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    }).done(function(res) {
+
+        console.log(res)
+
+        var tbody = document.getElementById('tbody')
+        tbody.innerHTML = ""
+
+        let subjects = JSON.parse(res)
+
+        for(let subject of subjects) {
+            var tr = document.createElement('tr')
+            var td1 = document.createElement('td')
+            td1.innerHTML = subject.NombreAsignatura
+            var td2 = document.createElement('td')
+            td2.innerHTML = subject.AmountOfModules
+            var td3 = document.createElement('td')
+            td3.innerHTML = subject.AmountOfStudents
+
+            tr.append(td1, td2, td3);
+            tbody.appendChild(tr);
+        }
+
+
+    })
+
+}*/

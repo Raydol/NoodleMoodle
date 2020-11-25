@@ -2,13 +2,14 @@
 
 @section('title') {{$title}} @endsection
 
+
 @section('content')
 
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="well well-sm">
-                <form class="form-horizontal" method="post" action="{{$_ENV['APP_URL']}}{{$_ENV["APP_NAME"]}}/register">
+                <form class="form-horizontal" method="post" action="{{config('app.url')}}{{config('app.name')}}/register">
                     @csrf
                     <fieldset>
                         <legend class="text-center header">Registro</legend>

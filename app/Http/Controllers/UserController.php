@@ -123,7 +123,7 @@ class UserController extends Controller
                 $usuario->Password = password_hash($password, PASSWORD_DEFAULT);
                 $user->addUser($usuario);
                 $_SESSION["email"] = $usuario->Email;
-                return Redirect::to($_ENV["APP_URL"].$_ENV["APP_NAME"]);
+                return Redirect::to(config('app.url').config('app.name'));
             }   
     }
 
@@ -150,7 +150,7 @@ class UserController extends Controller
             if(password_verify($password, $db_password)) {
                 $_SESSION["email"] = $email;
                 $user->updateUserLastAccessDate($email);
-                return Redirect::to($_ENV["APP_URL"].$_ENV["APP_NAME"]);
+                return Redirect::to(config('app.url').config('app.name'));
             } else {
                 $problems = true;
             }
@@ -166,7 +166,7 @@ class UserController extends Controller
 
     public function logout() {
         session_destroy();
-        return Redirect::to($_ENV["APP_URL"].$_ENV["APP_NAME"]);
+        return Redirect::to(config('app.url').config('app.name'));
     }
 
 
@@ -233,4 +233,28 @@ class UserController extends Controller
                 throw new Exception("El filtro introducido no es válido");
             }
         }
+        
+    public function deleteUser() {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json);
+        
+        $user = new Usuario;
+
+        try {
+            $user->deleteUser($data[0]);
+            if ($data[1] == "alumno") {
+                $users = $user->getAllStudents();
+            } else if ($data[1] == "profesor") {
+                $users = $user->getAllProfessors();
+            } else {
+                $users = $user->getUsers();
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        return json_encode($users);
     }
+    
+    
+}

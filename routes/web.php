@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,18 @@ Route::get('/userslist', [UserController::class, 'users']);
 Route::post('/userslist', [UserController::class, 'users']);
 
 //Subjects
+Route::get('/subjectslist', [SubjectController::class, 'subjectslist']);
 
+//Insert Subject
+Route::get('/subject/new', [SubjectController::class, 'subjectForm']);
+Route::post('/subject/new', [SubjectController::class, 'addSubject']);
+
+
+//Generate Activation Code
+Route::get('/subject/new/generatecode', [SubjectController::class, 'generateCode']);
+
+//Delete user
+
+Route::post('/user/delete', [UserController::class, 'deleteUser']);
 
 

@@ -21,8 +21,12 @@ class Asignatura extends Model
         ->get();
     }
 
-    public function getSubjects() {
-        return Asignatura::all();
+    public function getSubjects($filter_subject = "") {
+        if ($filter_subject == "") {
+            return Asignatura::all();
+        } else {
+            return Asignatura::where('NombreAsignatura','like',$filter_subject.'%')->get();
+        }
     }
 
     public function getAllSubjectsNotInModule($id_module) {
@@ -35,6 +39,17 @@ class Asignatura extends Model
     }
 
     public function getSubjectById($id) {
-        return (object)Asignatura::where('Id', $id)->first();
+        return (object)Asignatura::where('Id', $id)->first(); 
+    }
+
+    public function addSubject($nombreAsignatura, $codigoActivacion) {
+        DB::table('asignaturas')->insert([
+            'NombreAsignatura' => $nombreAsignatura,
+            'CodigoActivacion' => $codigoActivacion
+        ]);
+    }
+
+    public function subjectExists($nombreAsignatura) {
+        return count(Asignatura::where('NombreAsignatura', $nombreAsignatura)->get()) > 0 ? true : false;
     }
 }

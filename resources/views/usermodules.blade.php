@@ -2,6 +2,7 @@
 
 @section('title') {{$title}}  @endsection
 
+
 @section('content')
 
 @if ($usuario->Email == $_SESSION["email"])
@@ -12,7 +13,7 @@
 @else
 <blockquote class="blockquote">
 <h2 class="mb-0 display-5">Módulos que cursa 
-    <a href="{{$_ENV["APP_URL"]}}{{$_ENV["APP_NAME"]}}/profile/{{$usuario->Email}}">
+    <a href="{{config('app.url')}}{{config('app.name')}}/profile/{{$usuario->Email}}">
       {{$usuario->Nombre}} {{$usuario->Apellidos}}
     </a>
 </h2>
@@ -20,7 +21,7 @@
 @endif
 
 @if ($usuario->Email == $_SESSION["email"])
-<a class="btn btn-dark mb-3" href="{{$_ENV["APP_URL"]}}{{$_ENV["APP_NAME"]}}/modules" role="button">Unirte a un módulo</a>
+<a class="btn btn-dark mb-3" href="{{config('app.url')}}{{config('app.name')}}/modules" role="button">Unirte a un módulo</a>
 @endif
 
 <div class="row">

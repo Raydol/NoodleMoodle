@@ -2,6 +2,7 @@
 
 @section('title') {{$title}}  @endsection
 
+
 @section('content')
 <?php
   $cont = 0;
@@ -22,7 +23,7 @@
     <td><a href="" class="text-dark">{{$module->NombreModulo}}</a></td>
 <td id="td{{$cont}}">
       @foreach ($module->subjects as $subject)
-          <span>"{{$subject->NombreAsignatura}}" </span>
+          <span>"{{$subject->NombreAsignatura}}"</span>
       @endforeach
     </td>
 
@@ -44,6 +45,6 @@
 </tbody>
 </table>
 
-<script src="{{$_ENV["APP_NAME"]}}/../resources/js/functions.js"></script>
+<script src="{{config('app.name')}}/../resources/js/functions.js"></script>
 
 @endsection

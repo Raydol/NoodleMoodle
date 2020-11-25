@@ -44,7 +44,7 @@ class ModuleController extends Controller
         $module = new Modulo;
         $subject = new Asignatura;
         $subjectmodule = new AsignaturaModulo;
-        $title = "Listado de módulos";
+        $title = "Módulos";
 
         $json = file_get_contents('php://input');
         $data = json_decode($json);

@@ -8,7 +8,7 @@
     @csrf
 <label for="rol" class="mr-3 mt-3">Filtrar por rol: 
     <select id="rol" name="rol" onchange="filtrarRol();">
-        <option value="all" selected></option>
+        <option value="all" selected>Todos</option>
         <option value="alumno">Alumno</option>
         <option value="profesor">Profesor</option>
     </select>
@@ -46,13 +46,18 @@
         <td>{{$user->RolName}}</td>
         <td>{{$user->FechaPrimerAcceso}}</td>
         <td>{{$user->FechaUltimoAcceso}}</td>
-        <td>Acciones</td>
+        <td class="text-center">
+            <a href="javascript:void(0)" class="text-dark" style="text-decoration: none" 
+            onclick="deleteUser({{$user->Id}})">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+        </td>
     </tr>
 
 @endforeach
 </tbody>
 </table>
 
-<script src="{{$_ENV["APP_NAME"]}}/../resources/js/functions.js"></script>
+<script src="{{config('app.name')}}/../resources/js/functions.js"></script>
 
 @endsection

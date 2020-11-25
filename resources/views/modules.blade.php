@@ -2,13 +2,14 @@
 
 @section('title') {{$title}}  @endsection
 
+
 @section('content')
 
 <table class="table">
     <thead class="bg-dark text-white">
       <tr>
         <th scope="col">Nombre del módulo</th>
-        <th scope="col">Alumnos matriculados por módulo</th>
+        <th scope="col">Usuarios matriculados por módulo</th>
         <th scope="col">Unirte</th>
       </tr>
     </thead>

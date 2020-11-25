@@ -2,6 +2,7 @@
 
 @section('title') Perfil @endsection
 
+
 @section('content')
 
 <div class="container">
