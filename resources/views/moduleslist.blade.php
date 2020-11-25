@@ -23,8 +23,13 @@
     <tbody>
 @foreach ($modules as $module)
 <tr>
-    <td><a href="" class="text-dark">{{$module->NombreModulo}}</a></td>
-<td id="td{{$cont}}">
+    <td>
+      <a href="{{config('app.url')}}{{config('app.name')}}/module/{{$module->Id}}" class="text-dark">
+        {{$module->NombreModulo}}
+      </a>
+    </td>
+    
+    <td id="td{{$cont}}">
       @foreach ($module->subjects as $subject)
           <span>"{{$subject->NombreAsignatura}}"</span>
       @endforeach

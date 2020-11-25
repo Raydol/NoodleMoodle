@@ -33,4 +33,8 @@ class Modulo extends Model
             'NombreModulo' => $nombreModulo
         ]);
     }
+
+    public function getModuleById($id) {
+        return Modulo::where('Id', $id)->first();
+    }
 }

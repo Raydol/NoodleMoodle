@@ -70,7 +70,10 @@ Route::post('/module/new', [ModuleController::class, 'addModule']);
 Route::get('/subject/new/generatecode', [SubjectController::class, 'generateCode']);
 
 //Delete user
-
 Route::post('/user/delete', [UserController::class, 'deleteUser']);
+
+//Module details
+Route::get('/module/{idModule}', [ModuleController::class, 'moduleDetails']);
+
 
 

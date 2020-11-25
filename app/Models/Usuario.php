@@ -79,4 +79,20 @@ class Usuario extends Model
     public function deleteUser($id) {
         DB::table('usuarios')->delete($id);
     }
+
+    public function getStudentsPerModule($id_module) {
+        $query = "SELECT * FROM usuarios, usuariosmodulos WHERE usuarios.IdRol = 
+        (SELECT roles.Id FROM roles WHERE roles.NombreRol = 'alumno') 
+        and usuarios.Id = usuariosmodulos.IdUsuario and usuariosmodulos.IdModulo = ?";
+
+        return DB::select($query, [$id_module]);
+    }
+
+    public function getProfessorsPerModule($id_module) {
+        $query = "SELECT * FROM usuarios, usuariosmodulos WHERE usuarios.IdRol = 
+        (SELECT roles.Id FROM roles WHERE roles.NombreRol = 'profesor') 
+        and usuarios.Id = usuariosmodulos.IdUsuario and usuariosmodulos.IdModulo = ?";
+
+        return DB::select($query, [$id_module]);
+    }
 }

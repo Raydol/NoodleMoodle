@@ -33,7 +33,7 @@
       </div>
         <div class="card-body card-body-cascade text-center">
           <h5 class="card-title">{{$module->NombreModulo}}</h5>
-          <a href="#" class="btn btn-outline-secondary">Acceder</a>
+          <a href="{{config('app.url')}}{{config('app.name')}}/module/{{$module->Id}}" class="btn btn-outline-secondary">Acceder</a>
         </div>
   </div>
 </div>

@@ -6,8 +6,8 @@ use App\Models\Asignatura;
 use App\Models\AsignaturaModulo;
 use App\Models\Modulo;
 use App\Models\Usuario;
+use App\Models\UsuarioAsignatura;
 use App\Models\UsuarioModulo;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 class ModuleController extends Controller
@@ -104,6 +104,45 @@ class ModuleController extends Controller
             $module->addModule(strtoupper($nombreModulo));
             return Redirect::to(config('app.url').config('app.name')."/moduleslist");
         }
+    }
+
+    public function moduleDetails($id_module) {
+        //Instancio los ORM que voy a necesitar
+        $module = new Modulo;
+        $subject = new Asignatura;
+        $user = new Usuario;
+        $usermodule = new UsuarioModulo;
+        $usersubject = new UsuarioAsignatura;
+
+        //Obtengo de la BD los datos que voy a necesitar en la vista
+        $modulo = $module->getModuleById($id_module);
+        $subjects = $subject->getSubjectsPerModule($id_module);
+        $professors = $user->getProfessorsPerModule($id_module);
+        $students = $user->getStudentsPerModule($id_module);
+
+        //Obtengo de la BD todas las asignaturas que imparte un profesor
+        foreach($professors as $professor) {
+            $professor->subjects = $subject->getSubjectsPerUserAndPerModule($professor->Id, $id_module);
+            $professor->FechaPrimerAcceso = date('d-m-Y H:i:s', strtotime($professor->FechaPrimerAcceso));
+            $professor->FechaUltimoAcceso = date('d-m-Y H:i:s', strtotime($professor->FechaUltimoAcceso));
+        }
+
+        //Obtengo de la BD todas las asignaturas que cursa un alumno
+        foreach($students as $student) {
+            $student->subjects = $subject->getSubjectsPerUserAndPerModule($student->Id, $id_module);
+            $student->FechaPrimerAcceso = date('d-m-Y H:i:s', strtotime($student->FechaPrimerAcceso));
+            $student->FechaUltimoAcceso = date('d-m-Y H:i:s', strtotime($student->FechaUltimoAcceso));
+        }
+
+      /*
+        Estabezco el título de la ventana, compruebo si el usuario está vinculado al módulo o no y 
+        renderizo la vista envíandole las
+        variables que necesito en la misma
+      */
+        $title = $modulo->NombreModulo;
+        $currentUser = $user->getUserByEmail($_SESSION['email']);
+        $currentUser->userBelongsToModule = $usermodule->userBelongsToModule($currentUser->Id, $id_module);
+        return view('moduledetails', compact('title', 'modulo', 'subjects', 'professors', 'students', 'currentUser', 'usersubject'));
     }
 
 }
