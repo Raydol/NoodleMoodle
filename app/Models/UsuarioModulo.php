@@ -29,4 +29,10 @@ class UsuarioModulo extends Model
             'IdModulo' => $id_module
         ]);
     }
+
+    public function deleteUserFromModule($id_user, $id_module) {
+        DB::table('usuariosmodulos')->where('IdUsuario', $id_user)
+        ->where('IdModulo', $id_module)
+        ->delete();
+    }
 }

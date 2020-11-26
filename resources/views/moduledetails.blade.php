@@ -6,8 +6,12 @@
 <h3>{{$modulo->NombreModulo}}</h3>
 
 @if (!$currentUser->userBelongsToModule)
- <button type="button" class="btn btn-outline-primary" onclick="joinModule({{$modulo->Id}});">
+<button type="button" class="btn btn-outline-primary" onclick="joinModule({{$modulo->Id}});">
     <i class="fas fa-sign-in-alt"></i> Unirte al módulo
+</button>
+@else
+<button type="button" class="btn btn-outline-primary" onclick="leaveModule({{$modulo->Id}});">
+    <i class="fas fa-sign-out-alt"></i> Abandonar módulo
 </button>
 @endif
 

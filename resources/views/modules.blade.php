@@ -21,7 +21,7 @@
     @if ($module->UserBelongsToModule)
     <td>Ya cursas este módulo</td>
     @else
-    <td><a class="btn btn-dark" href="#" role="button">Unirte al módulo</a></td>
+    <td><a class="btn btn-dark" href="{{config('app.url')}}{{config('app.name')}}/module/{{$module->Id}}" role="button">Unirte al módulo</a></td>
     @endif
 </tr>
 

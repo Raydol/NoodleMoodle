@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class UsuarioAsignatura extends Model
 {
@@ -18,5 +19,11 @@ class UsuarioAsignatura extends Model
         ->where('IdAsignatura', $id_asignatura)
         ->where('IdModulo', $id_modulo)
         ->first() != null) ? true : false;
+    }
+
+    public function deleteUserFromSubjectsOnModule($id_user, $id_module) {
+        DB::table('usuariosasignaturas')->where('IdUsuario', $id_user)
+        ->where('IdModulo', $id_module)
+        ->delete();
     }
 }

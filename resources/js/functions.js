@@ -184,9 +184,9 @@ function joinModule(id_module) {
     }
 }
 
-function unjoinModule(id_module) {
+function leaveModule(id_module) {
     if(confirm("¿Está seguro de que desea abandonar este módulo?")) {
-        location.href = "/NoodleMoodle/public/module/"+ id_module + "/unjoin";
+        location.href = "/NoodleMoodle/public/module/"+ id_module + "/leave";
     }
 }
 

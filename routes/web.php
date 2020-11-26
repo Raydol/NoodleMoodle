@@ -79,7 +79,7 @@ Route::get('/module/{idModule}', [ModuleController::class, 'moduleDetails']);
 //Join module
 Route::get('/module/{idModule}/join', [UserModuleController::class, 'joinModule']);
 
-//Unjoin module
-Route::get('/module/{idModule}/unjoin', [UserModuleController::class, 'unjoinModule']);
+//Leave module
+Route::get('/module/{idModule}/leave', [UserModuleController::class, 'leaveModule']);
 
 
