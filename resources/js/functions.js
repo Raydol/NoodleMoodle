@@ -190,6 +190,14 @@ function leaveModule(id_module) {
     }
 }
 
+function solicitudDenegada() {
+    confirm("No se ha podido procesar tu solicitud porque aún no hay ningún profesor que imparta la asignatura seleccionada")
+}
+
+function solicitudAceptada() {
+    confirm("Tu solicitud está pendiente de ser validada por el profesor")
+}
+
 
 
 

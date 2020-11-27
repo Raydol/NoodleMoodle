@@ -95,4 +95,11 @@ class Usuario extends Model
 
         return DB::select($query, [$id_module]);
     }
+
+    public function isProfessor($id_user) {
+        $query = "SELECT * from usuarios where usuarios.Id = ? and usuarios.IdRol = 
+        (SELECT roles.Id from roles where roles.NombreRol = 'profesor')";
+
+        return count(DB::select($query, [$id_user])) > 0 ? true : false;
+    }
 }

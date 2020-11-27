@@ -82,4 +82,10 @@ Route::get('/module/{idModule}/join', [UserModuleController::class, 'joinModule'
 //Leave module
 Route::get('/module/{idModule}/leave', [UserModuleController::class, 'leaveModule']);
 
+//Validate if a subject has a teacher
+Route::post('/module/{nombreAsignatura}/validate', [SubjectController::class, 'validateSubject']);
+
+//Join subject
+Route::post('/module/{nombreAsignatura}/join', [SubjectController::class, 'processActivationCode']);
+
 

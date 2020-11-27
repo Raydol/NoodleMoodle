@@ -26,4 +26,33 @@ class UsuarioAsignatura extends Model
         ->where('IdModulo', $id_module)
         ->delete();
     }
+
+    public function subjectHasProfessor($id_subject, $id_module) {
+        $query = "SELECT * from usuarios where usuarios.IdRol = 
+        (SELECT roles.Id from roles where roles.NombreRol = 'profesor')
+        and usuarios.Id = 
+        (SELECT usuariosasignaturas.IdUsuario from usuariosasignaturas where 
+        usuariosasignaturas.IdAsignatura = ? and usuariosasignaturas.IdModulo = ?)";
+
+        return count(DB::select($query, [$id_subject, $id_module])) > 0 ? true : false;
+    }
+
+    public function addUserToSubjectOnModule($id_user, $id_subject, $id_module) {
+        DB::table('usuariosasignaturas')->insert([
+            'IdUsuario' => $id_user,
+            'IdAsignatura' => $id_subject,
+            'IdModulo' => $id_module,
+        ]);
+    }
+
+    public function getSubjectProfessorFromModule($id_subject, $id_module) {
+        $query = "SELECT * from usuarios where usuarios.IdRol = 
+        (SELECT roles.Id from roles where roles.NombreRol = 'profesor')
+        and usuarios.Id = 
+        (SELECT usuariosasignaturas.IdUsuario from usuariosasignaturas where 
+        usuariosasignaturas.IdAsignatura = ? and usuariosasignaturas.IdModulo = ?)";
+
+        return DB::selectOne($query, [$id_subject, $id_module]);
+        
+    }
 }

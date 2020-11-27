@@ -38,7 +38,30 @@
                 $subject->Id, 
                 $modulo->Id
                 ))
-                <td><a href="">Solicitar unirse</a></td>
+                <!-- Comprobar que el current user es profesor o no lo es -->
+                    @if ($user->isProfessor($currentUser->Id))
+                        <form method="POST" action="{{config('app.url')}}{{config('app.name')}}/module/{{strtolower($subject->NombreAsignatura)}}/validate">
+                            @csrf
+                        <input type="hidden" value="{{$modulo->Id}}" name="id_module">
+                        <input type="hidden" value="{{$subject->Id}}" name="id_subject">
+                        <td><button type="submit" class="btn btn-link">Nombrarte profesor de {{strtolower($subject->NombreAsignatura)}}</button></td>
+                        </form>
+                    @else
+                        <!-- 
+                            Comprobar si estas en la tabla avisos o no. Para asi mostrar "Solicitar unirse" o 
+                            mostrar "Pendiente"
+                        -->
+                        @if ($advice->adviceExists($currentUser->Id, $subject->Id, $modulo->Id))
+                            <td>Pendiente de confirmación</td>
+                        @else
+                            <form method="POST" action="{{config('app.url')}}{{config('app.name')}}/module/{{strtolower($subject->NombreAsignatura)}}/validate">
+                                @csrf
+                                <input type="hidden" value="{{$modulo->Id}}" name="id_module">
+                                <input type="hidden" value="{{$subject->Id}}" name="id_subject">
+                                <td><button type="submit" class="btn btn-link">Solicitar unirse a {{strtolower($subject->NombreAsignatura)}}</button></td>
+                            </form>
+                        @endif
+                    @endif
             @else 
                 <td>No perteneces a este módulo</td>
             @endif

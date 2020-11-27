@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Asignatura;
 use App\Models\AsignaturaModulo;
+use App\Models\Aviso;
 use App\Models\Modulo;
 use App\Models\Usuario;
 use App\Models\UsuarioAsignatura;
@@ -113,6 +114,7 @@ class ModuleController extends Controller
         $user = new Usuario;
         $usermodule = new UsuarioModulo;
         $usersubject = new UsuarioAsignatura;
+        $advice = new Aviso;
 
         //Obtengo de la BD los datos que voy a necesitar en la vista
         $modulo = $module->getModuleById($id_module);
@@ -141,7 +143,7 @@ class ModuleController extends Controller
         $title = $modulo->NombreModulo;
         $currentUser = $user->getUserByEmail($_SESSION['email']);
         $currentUser->userBelongsToModule = $usermodule->userBelongsToModule($currentUser->Id, $id_module);
-        return view('moduledetails', compact('title', 'modulo', 'subjects', 'professors', 'students', 'currentUser', 'usersubject'));
+        return view('moduledetails', compact('title', 'modulo', 'subjects', 'professors', 'students', 'currentUser', 'usersubject', 'user', 'advice'));
     }
 
     
