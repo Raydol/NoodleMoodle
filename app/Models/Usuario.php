@@ -38,6 +38,10 @@ class Usuario extends Model
         return (object)Usuario::where('Email', $email)->first();
     }
 
+    public function getUserById($id) {
+        return (object)Usuario::where('Id', $id)->first();
+    }
+
     public function getPasswordByEmail($email) {
         return Usuario::where('Email', $email)->first()->Password;
     }

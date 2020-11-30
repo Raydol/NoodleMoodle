@@ -1,3 +1,9 @@
+<?php
+    use App\Models\Usuario;
+    use App\Models\Aviso;
+    $advice = new Aviso;
+    $user = new Usuario;
+?>
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -114,10 +120,24 @@
                 <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/profile/{{$_SESSION["email"]}}">Mi perfil</a>
                 <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/logout">Cerrar sesión</a>
             @else
-                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/modules/{{$_SESSION["email"]}}">Mis módulos</a>
-                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/subjects">Mis asignaturas</a>
-                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/profile/{{$_SESSION["email"]}}">Mi perfil</a>
-                <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/logout">Cerrar sesión</a>
+                <!-- Aqui comprobamos si el usuario es profesor -->
+                @if (!$user->isProfessor($user->getUserByEmail($_SESSION['email'])->Id))
+                    <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/modules/{{$_SESSION["email"]}}">Mis módulos</a>
+                    <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/subjects">Mis asignaturas</a>
+                    <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/profile/{{$_SESSION["email"]}}">Mi perfil</a>
+                    <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/logout">Cerrar sesión</a>
+                @else
+                    <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/modules/{{$_SESSION["email"]}}">Mis módulos</a>
+                    <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/subjects">Mis asignaturas</a>
+                    <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/profile/{{$_SESSION["email"]}}">Mi perfil</a>
+                    <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/advices">
+                        Avisos 
+                        <span class="badge badge-warning">
+                            {{count($advice->getAdvicesFromProfessor($user->getUserByEmail($_SESSION['email'])->Id))}}
+                        </span>
+                    </a>
+                    <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/logout">Cerrar sesión</a>
+                @endif
             @endif
         @endif
     </div>

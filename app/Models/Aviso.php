@@ -35,4 +35,16 @@ class Aviso extends Model
         ->where('IdModulo', $id_module)
         ->delete();
     }
+
+    public function getAdvicesFromProfessor($id_professor) {
+        return Aviso::where('IdProfesor', $id_professor)->get();
+    }
+
+    public function getAdviceById($id) {
+        return Aviso::where('Id', $id)->first();
+    }
+
+    public function deleteAdviceById($id) {
+        DB::table('avisos')->where('Id', $id)->delete();
+    }
 }

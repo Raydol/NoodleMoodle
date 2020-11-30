@@ -6,6 +6,7 @@ use App\Http\Controllers\ViewController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserModuleController;
+use App\Http\Controllers\AdviceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,5 +88,10 @@ Route::post('/module/{nombreAsignatura}/validate', [SubjectController::class, 'v
 
 //Join subject
 Route::post('/module/{nombreAsignatura}/join', [SubjectController::class, 'processActivationCode']);
+
+//Advices
+Route::get('/advices', [AdviceController::class, 'advices']);
+
+Route::post('/advice/request', [AdviceController::class, 'processRequest']);
 
 

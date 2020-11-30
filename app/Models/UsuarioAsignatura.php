@@ -30,7 +30,7 @@ class UsuarioAsignatura extends Model
     public function subjectHasProfessor($id_subject, $id_module) {
         $query = "SELECT * from usuarios where usuarios.IdRol = 
         (SELECT roles.Id from roles where roles.NombreRol = 'profesor')
-        and usuarios.Id = 
+        and usuarios.Id in 
         (SELECT usuariosasignaturas.IdUsuario from usuariosasignaturas where 
         usuariosasignaturas.IdAsignatura = ? and usuariosasignaturas.IdModulo = ?)";
 
@@ -48,7 +48,7 @@ class UsuarioAsignatura extends Model
     public function getSubjectProfessorFromModule($id_subject, $id_module) {
         $query = "SELECT * from usuarios where usuarios.IdRol = 
         (SELECT roles.Id from roles where roles.NombreRol = 'profesor')
-        and usuarios.Id = 
+        and usuarios.Id in 
         (SELECT usuariosasignaturas.IdUsuario from usuariosasignaturas where 
         usuariosasignaturas.IdAsignatura = ? and usuariosasignaturas.IdModulo = ?)";
 
