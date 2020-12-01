@@ -161,7 +161,7 @@ function deleteUser(id) {
                 td10.className += " text-center"
 
                 enlacePapelera.setAttribute("href", "javascript:void(0)")
-                enlacePapelera.className += " text-dark"
+                enlacePapelera.className += " text-dark btn btn-outline-dark"
                 enlacePapelera.setAttribute("style", "text-decoration: none")
                 enlacePapelera.setAttribute("onclick", "deleteUser(" + user.Id +")")
 
@@ -190,12 +190,61 @@ function leaveModule(id_module) {
     }
 }
 
-function solicitudDenegada() {
-    confirm("No se ha podido procesar tu solicitud porque aún no hay ningún profesor que imparta la asignatura seleccionada")
+function deleteModule(id_module) {
+    if(confirm("¿Desea eliminar realmente este módulo?")) {
+        location.href = "/NoodleMoodle/public/module/" + id_module +"/delete"
+    }
 }
 
-function solicitudAceptada() {
-    confirm("Tu solicitud está pendiente de ser validada por el profesor")
+function deleteSubject(id) {
+    if (confirm("¿Desea eliminar realmente esta asignatura?")) {
+        var data = [id]
+
+        $.ajax({
+            url: '/NoodleMoodle/public/subject/delete',
+            method: 'POST',
+            data: JSON.stringify(data),
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }).done(function(res) {
+            let tbody = document.getElementById('tbody')
+            tbody.innerHTML = "";
+
+            var subjects = JSON.parse(res)
+
+            for (let subject of subjects) {
+                var tr = document.createElement("tr");
+                let td1 = document.createElement("td");
+                td1.innerHTML = subject.NombreAsignatura;
+                let td2 = document.createElement("td");
+                td2.innerHTML = subject.AmountOfModules;
+                let td3 = document.createElement("td");
+                td3.innerHTML = subject.AmountOfStudents;
+
+                //Creamos el td del enlace de borrado
+                let td4 = document.createElement("td");
+                let enlacePapelera = document.createElement("a")
+                let iconoPapelera = document.createElement("i")
+
+                td4.className += " text-center"
+
+                enlacePapelera.setAttribute("href", "javascript:void(0)")
+                enlacePapelera.className += " text-dark btn btn-outline-dark"
+                enlacePapelera.setAttribute("style", "text-decoration: none")
+                enlacePapelera.setAttribute("onclick", "deleteSubject(" + subject.Id +")")
+
+                iconoPapelera.className += " fas fa-trash-alt"
+
+                enlacePapelera.append(iconoPapelera)
+                td4.append(enlacePapelera)
+
+                tr.append(td1, td2, td3, td4)
+                tbody.appendChild(tr);
+            }
+        })
+
+    }
 }
 
 

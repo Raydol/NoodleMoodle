@@ -152,6 +152,13 @@ class ModuleController extends Controller
         return view('moduledetails', compact('title', 'modulo', 'subjects', 'professors', 'students', 'currentUser', 'usersubject', 'user', 'advice'));
     }
 
+
+    public function deleteModule($id) {
+        $module = new Modulo;
+        $module->deleteModuleById($id);
+        return Redirect::to(config('app.url').config('app.name')."/moduleslist");
+    }
+
     
 
 }

@@ -8,17 +8,6 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\UserModuleController;
 use App\Http\Controllers\AdviceController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 session_start(); //Creamos una sesión de usuario, tanto si está logueado como si no
 
 //Control Views
@@ -59,7 +48,6 @@ Route::post('/userslist', [UserController::class, 'users']);
 
 //Subjects
 Route::get('/subjects/{email}', [SubjectController::class, 'userSubjects']);
-
 Route::get('/subjectslist', [SubjectController::class, 'subjectslist']);
 
 //Insert Subject
@@ -93,7 +81,12 @@ Route::post('/module/{nombreAsignatura}/join', [SubjectController::class, 'proce
 
 //Advices
 Route::get('/advices', [AdviceController::class, 'advices']);
-
 Route::post('/advice/request', [AdviceController::class, 'processRequest']);
+
+//Delete module
+Route::get('/module/{idModule}/delete', [ModuleController::class, 'deleteModule']);
+
+//Delete subject
+Route::post('/subject/delete', [SubjectController::class, 'deleteSubject']);
 
 

@@ -37,4 +37,8 @@ class Modulo extends Model
     public function getModuleById($id) {
         return Modulo::where('Id', $id)->first();
     }
+
+    public function deleteModuleById($id) {
+        DB::table('modulos')->delete($id);
+    }
 }

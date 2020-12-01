@@ -192,4 +192,28 @@ class SubjectController extends Controller
         return view('usersubjects', compact('title', 'usuario', 'subjects', 'subject', 'module'));
     }
 
+    
+
+    public function deleteSubject() {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json);
+        
+        $subject = new Asignatura;
+        $subjectmodule = new AsignaturaModulo;
+        $user = new Usuario;
+
+        try {
+            $subject->deleteSubjectById($data[0]);
+            $subjects = $subject->getSubjects();
+            foreach($subjects as $sub) {
+                $sub->AmountOfModules = $subjectmodule->getAmountOfModulesPerSubject($sub->Id);
+                $sub->AmountOfStudents = $user->getAmountOfStudentsPerSubject($sub->Id);
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        return json_encode($subjects);
+    }
+
 }

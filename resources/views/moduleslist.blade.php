@@ -18,11 +18,12 @@
         <th scope="col">Nombre del módulo</th>
         <th scope="col">Asignaturas del módulo</th>
         <th scope="col">Añadir asignatura al módulo</th>
+        <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody>
 @foreach ($modules as $module)
-<tr>
+  <tr>
     <td>
       <a href="{{config('app.url')}}{{config('app.name')}}/module/{{$module->Id}}" class="text-dark">
         {{$module->NombreModulo}}
@@ -47,7 +48,14 @@
         <input type="button" value="Añadir" onclick="addSubjectToModule({{$cont}}, {{$module->Id}});">
       </form>
     </td>
-</tr>
+
+    <td class="text-center">
+      <a href="javascript:void(0)" class="text-dark btn btn-outline-dark" style="text-decoration: none" 
+      onclick="deleteModule({{$module->Id}});">
+          <i class="fas fa-trash-alt"></i>
+      </a>
+    </td>
+  </tr>
 <?php $cont++; ?>
 @endforeach
 </tbody>

@@ -47,7 +47,7 @@
         <td>{{$user->FechaPrimerAcceso}}</td>
         <td>{{$user->FechaUltimoAcceso}}</td>
         <td class="text-center">
-            <a href="javascript:void(0)" class="text-dark" style="text-decoration: none" 
+            <a href="javascript:void(0)" class="text-dark btn btn-outline-dark" style="text-decoration: none" 
             onclick="deleteUser({{$user->Id}})">
                 <i class="fas fa-trash-alt"></i>
             </a>

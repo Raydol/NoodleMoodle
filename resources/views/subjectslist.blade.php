@@ -22,6 +22,7 @@
         <th scope="col">Nombre de la asignatura</th>
         <th scope="col">Número de módulos en los que se cursa</th>
         <th scope="col">Número de alumnos que la cursan</th>
+        <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody id="tbody">
@@ -30,6 +31,12 @@
         <td><a href="" class="text-dark">{{$subject->NombreAsignatura}}</a></td>
         <td>{{$subject->AmountOfModules}}</td>
         <td>{{$subject->AmountOfStudents}}</td>
+        <td class="text-center">
+          <a href="javascript:void(0)" class="text-dark btn btn-outline-dark" style="text-decoration: none" 
+          onclick="deleteSubject({{$subject->Id}});">
+              <i class="fas fa-trash-alt"></i>
+          </a>
+        </td>
       </tr>
       @endforeach
     </tbody>

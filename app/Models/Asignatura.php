@@ -62,4 +62,8 @@ class Asignatura extends Model
         return DB::select($query, [$id_user, $id_module]);
     }
 
+    public function deleteSubjectById($id) {
+        DB::table('asignaturas')->delete($id);
+    }
+
 }
