@@ -53,6 +53,11 @@ class UsuarioAsignatura extends Model
         usuariosasignaturas.IdAsignatura = ? and usuariosasignaturas.IdModulo = ?)";
 
         return DB::selectOne($query, [$id_subject, $id_module]);
+    }
+
+    public function getSubjectsByUser($user) {
+        $query = "select * from usuariosasignaturas where usuariosasignaturas.IdUsuario = ?";
         
+        return DB::select($query, [$user->Id]);
     }
 }

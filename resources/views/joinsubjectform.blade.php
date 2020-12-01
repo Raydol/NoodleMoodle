@@ -5,7 +5,7 @@
 @section('content')
 
 <form class="p-5 w-50" 
-action="{{config('app.url')}}{{config('app.name')}}/module/{{strtolower($asignatura->NombreAsignatura)}}/join" method="POST" style="margin:0 auto">
+action="{{config('app.url')}}{{config('app.name')}}/module/{{strtolower(str_replace(" ", "", $asignatura->NombreAsignatura))}}/join" method="POST" style="margin:0 auto">
     @csrf
     <p class="h4 mb-4 text-center">{{$asignatura->NombreAsignatura}}</p>
 

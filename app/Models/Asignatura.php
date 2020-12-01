@@ -56,9 +56,10 @@ class Asignatura extends Model
     public function getSubjectsPerUserAndPerModule($id_user, $id_module) {
         $query = "SELECT * from asignaturas where asignaturas.Id in 
         (SELECT usuariosasignaturas.IdAsignatura from usuariosasignaturas 
-        where usuariosasignaturas.IdUsuario = ? and usuariosasignaturas.idModulo = ?)"; 
+        where usuariosasignaturas.IdUsuario = ? and usuariosasignaturas.IdModulo = ?)"; 
         
 
         return DB::select($query, [$id_user, $id_module]);
     }
+
 }

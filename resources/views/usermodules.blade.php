@@ -33,7 +33,9 @@
       </div>
         <div class="card-body card-body-cascade text-center">
           <h5 class="card-title">{{$module->NombreModulo}}</h5>
-          <a href="{{config('app.url')}}{{config('app.name')}}/module/{{$module->Id}}" class="btn btn-outline-secondary">Acceder</a>
+          @if ($usuario->Email == $_SESSION["email"])
+            <a href="{{config('app.url')}}{{config('app.name')}}/module/{{$module->Id}}" class="btn btn-outline-secondary">Acceder</a>
+          @endif
         </div>
   </div>
 </div>

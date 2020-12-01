@@ -123,12 +123,12 @@
                 <!-- Aqui comprobamos si el usuario es profesor -->
                 @if (!$user->isProfessor($user->getUserByEmail($_SESSION['email'])->Id))
                     <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/modules/{{$_SESSION["email"]}}">Mis módulos</a>
-                    <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/subjects">Mis asignaturas</a>
+                    <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/subjects/{{$_SESSION["email"]}}">Mis asignaturas</a>
                     <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/profile/{{$_SESSION["email"]}}">Mi perfil</a>
                     <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/logout">Cerrar sesión</a>
                 @else
                     <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/modules/{{$_SESSION["email"]}}">Mis módulos</a>
-                    <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/subjects">Mis asignaturas</a>
+                    <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/subjects/{{$_SESSION["email"]}}">Mis asignaturas</a>
                     <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/profile/{{$_SESSION["email"]}}">Mi perfil</a>
                     <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}/advices">
                         Avisos 

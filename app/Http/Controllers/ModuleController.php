@@ -35,7 +35,13 @@ class ModuleController extends Controller
     public function userModules($email) {
         $module = new Modulo;
         $user = new Usuario;
-        $title = "Mis módulos";
+        
+        if($_SESSION['email'] == $email) {
+            $title = "Mis módulos";
+        } else {
+            $title = "Módulos de " . $user->getUserByEmail($email)->Nombre;
+        }
+
         $usuario = $user->getUserByEmail($email);
         $modules = $module->getModulesByUser($usuario->Id);
 

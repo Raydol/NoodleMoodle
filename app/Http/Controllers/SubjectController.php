@@ -174,4 +174,22 @@ class SubjectController extends Controller
         }
     }
 
+    public function userSubjects($email) {
+        $user = new Usuario;
+        $usersubject = new UsuarioAsignatura;
+        $subject = new Asignatura;
+        $module = new Modulo;
+
+        $usuario = $user->getUserByEmail($email);
+        $subjects = $usersubject->getSubjectsByUser($usuario);
+
+        if($_SESSION['email'] == $email) {
+            $title = "Mis asignaturas";
+        } else {
+            $title = "Asignaturas de " . $user->getUserByEmail($email)->Nombre;
+        }
+
+        return view('usersubjects', compact('title', 'usuario', 'subjects', 'subject', 'module'));
+    }
+
 }

@@ -58,6 +58,8 @@ Route::get('/userslist', [UserController::class, 'users']);
 Route::post('/userslist', [UserController::class, 'users']);
 
 //Subjects
+Route::get('/subjects/{email}', [SubjectController::class, 'userSubjects']);
+
 Route::get('/subjectslist', [SubjectController::class, 'subjectslist']);
 
 //Insert Subject

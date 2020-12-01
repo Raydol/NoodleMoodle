@@ -40,7 +40,7 @@
                 ))
                 <!-- Comprobar que el current user es profesor o no lo es -->
                     @if ($user->isProfessor($currentUser->Id))
-                        <form method="POST" action="{{config('app.url')}}{{config('app.name')}}/module/{{strtolower($subject->NombreAsignatura)}}/validate">
+                        <form method="POST" action="{{config('app.url')}}{{config('app.name')}}/module/{{strtolower(str_replace(" ", "", $subject->NombreAsignatura))}}/validate">
                             @csrf
                         <input type="hidden" value="{{$modulo->Id}}" name="id_module">
                         <input type="hidden" value="{{$subject->Id}}" name="id_subject">
@@ -54,7 +54,7 @@
                         @if ($advice->adviceExists($currentUser->Id, $subject->Id, $modulo->Id))
                             <td>Pendiente de confirmación</td>
                         @else
-                            <form method="POST" action="{{config('app.url')}}{{config('app.name')}}/module/{{strtolower($subject->NombreAsignatura)}}/validate">
+                            <form method="POST" action="{{config('app.url')}}{{config('app.name')}}/module/{{strtolower(str_replace(" ", "", $subject->NombreAsignatura))}}/validate">
                                 @csrf
                                 <input type="hidden" value="{{$modulo->Id}}" name="id_module">
                                 <input type="hidden" value="{{$subject->Id}}" name="id_subject">
