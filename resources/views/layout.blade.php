@@ -103,7 +103,10 @@
 
     <div id="navbar">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <div class="navbar-nav">
                 <a class="nav-link" href="{{config('app.url')}}{{config('app.name')}}">Home</a>
                 
