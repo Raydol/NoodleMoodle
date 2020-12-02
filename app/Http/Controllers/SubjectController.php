@@ -216,4 +216,25 @@ class SubjectController extends Controller
         return json_encode($subjects);
     }
 
+    //Temario
+    public function subjectDetails() {
+        $title = "Asignatura";
+
+        $id_module = $_POST['id_module'] ?? "";
+        $id_subject = $_POST['id_subject'] ?? "";
+
+        //Instanciamos los modelos que vamos a necesitar
+        $user = new Usuario;
+        $subject = new Asignatura;
+
+        $asignatura = $subject->getSubjectById($id_subject);
+        
+
+        return view('subjectdetails', compact('title', 'id_module', 'asignatura'));
+    }
+
+    public function subjectParticipants() {
+
+    }
+
 }

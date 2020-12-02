@@ -16,7 +16,7 @@
     <tbody>
 @foreach ($modules as $module)
 <tr>
-<td><a href="{{config('app.url')}}{{config('app.name')}}/module/{{$module->Id}}" class="text-dark">{{$module->NombreModulo}}</a></td>
+<td><a href="{{config('app.url')}}{{config('app.name')}}/module/{{$module->Id}}" class="text-primary">{{$module->NombreModulo}}</a></td>
     <td>{{$module->NumeroUsuarios}}</td>
     @if ($module->UserBelongsToModule)
     <td>Ya cursas este módulo</td>

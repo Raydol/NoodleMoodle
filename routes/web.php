@@ -89,4 +89,10 @@ Route::get('/module/{idModule}/delete', [ModuleController::class, 'deleteModule'
 //Delete subject
 Route::post('/subject/delete', [SubjectController::class, 'deleteSubject']);
 
+//Subject details
+Route::post('/module/{idModule}/{subjectName}', [SubjectController::class, 'subjectDetails']);
+
+//Subject participants
+Route::get('/module/{idModule}/{subjectName}/participants', [SubjectController::class, 'subjectParticipants']);
+
 

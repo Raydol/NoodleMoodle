@@ -25,7 +25,7 @@
 @foreach ($modules as $module)
   <tr>
     <td>
-      <a href="{{config('app.url')}}{{config('app.name')}}/module/{{$module->Id}}" class="text-dark">
+      <a href="{{config('app.url')}}{{config('app.name')}}/module/{{$module->Id}}" class="text-primary">
         {{$module->NombreModulo}}
       </a>
     </td>

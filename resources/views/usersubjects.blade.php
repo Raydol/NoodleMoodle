@@ -25,9 +25,19 @@
             @foreach ($subjects as $sub)
                 <li class="list-group-item mt-1">
                     <span>
-                        <a href="">
-                            {{$subject->getSubjectById($sub->IdAsignatura)->NombreAsignatura}}
-                        </a>
+                        @if ($usuario->Email == $_SESSION["email"])
+                            <form method="POST" class="d-inline"
+                                action="{{config('app.url')}}{{config('app.name')}}/module/{{$sub->IdModulo}}/{{strtolower(str_replace(" ", "", $subject->getSubjectById($sub->IdAsignatura)->NombreAsignatura))}}">
+                                @csrf
+                                <input type="hidden" name="module_id" value="{{$sub->IdModulo}}">
+                                <input type="hidden" name="subject_id" value="{{$sub->IdAsignatura}}">
+                                <button type="submit" class="btn btn-link">
+                                    {{$subject->getSubjectById($sub->IdAsignatura)->NombreAsignatura}}
+                                </button>
+                            </form>
+                        @else
+                            <span class="text-primary">{{$subject->getSubjectById($sub->IdAsignatura)->NombreAsignatura}}</span>
+                        @endif
                         perteneciente a 
                         <a href="{{config('app.url')}}{{config('app.name')}}/module/{{$sub->IdModulo}}">
                             {{$module->getModuleById($sub->IdModulo)->NombreModulo}}
@@ -36,7 +46,7 @@
                     @if ($usuario->Email == $_SESSION["email"])
                         <span class="float-right">
                             <form method="POST" 
-                            action="{{config('app.url')}}{{config('app.name')}}/module/{{$sub->IdModulo}}/{{strtolower(str_replace(" ", "", $subject->getSubjectById($sub->IdAsignatura)->NombreAsignatura))}}" method="POST">
+                            action="{{config('app.url')}}{{config('app.name')}}/module/{{$sub->IdModulo}}/{{strtolower(str_replace(" ", "", $subject->getSubjectById($sub->IdAsignatura)->NombreAsignatura))}}">
                                 @csrf
                                 <input type="hidden" name="module_id" value="{{$sub->IdModulo}}">
                                 <input type="hidden" name="subject_id" value="{{$sub->IdAsignatura}}">
@@ -50,5 +60,5 @@
     @endif
 
 
-
+    <script src="{{config('app.url')}}{{config('app.name')}}/../resources/js/functions.js"></script>
 @endsection

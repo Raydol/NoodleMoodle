@@ -32,7 +32,12 @@
                 $subject->Id, 
                 $modulo->Id
                 ))
-                <td><a href="">Acceder</a></td>
+                    <form method="POST" action="{{config('app.url')}}{{config('app.name')}}/module/{{$subject->IdModulo}}/{{strtolower(str_replace(" ", "", $subject->NombreAsignatura))}}">
+                        @csrf
+                    <input type="hidden" value="{{$modulo->Id}}" name="id_module">
+                    <input type="hidden" value="{{$subject->Id}}" name="id_subject">
+                    <td><button type="submit" class="btn btn-link">Acceder</button></td>
+                    </form>
             @elseif ($currentUser->userBelongsToModule && !$usersubject->userBelongsToSubject(
                 $currentUser->Id, 
                 $subject->Id, 

@@ -73,7 +73,7 @@ class UserController extends Controller
             }
 
             //Comprobar que el teléfono móvil introducido es válido
-            if (!preg_match('/(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}$/', $telefono)) {
+            if (!preg_match('/^(\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}$/', $telefono)) {
                 $errorTelefono = "*El número de teléfono móvil no es válido";
                 $problems = true;
             }
