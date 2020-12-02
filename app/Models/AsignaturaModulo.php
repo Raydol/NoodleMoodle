@@ -24,5 +24,9 @@ class AsignaturaModulo extends Model
     public function getAmountOfModulesPerSubject($id_subject) {
         return AsignaturaModulo::where('IdAsignatura', $id_subject)->count();
     }
+
+    public function getSubjectModule($id_subject, $id_module) {
+        
+    }
     
 }

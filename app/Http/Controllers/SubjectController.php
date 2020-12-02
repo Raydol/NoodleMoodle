@@ -228,7 +228,6 @@ class SubjectController extends Controller
         $subject = new Asignatura;
 
         $asignatura = $subject->getSubjectById($id_subject);
-        
 
         return view('subjectdetails', compact('title', 'id_module', 'asignatura'));
     }

@@ -29,8 +29,8 @@
                             <form method="POST" class="d-inline"
                                 action="{{config('app.url')}}{{config('app.name')}}/module/{{$sub->IdModulo}}/{{strtolower(str_replace(" ", "", $subject->getSubjectById($sub->IdAsignatura)->NombreAsignatura))}}">
                                 @csrf
-                                <input type="hidden" name="module_id" value="{{$sub->IdModulo}}">
-                                <input type="hidden" name="subject_id" value="{{$sub->IdAsignatura}}">
+                                <input type="hidden" name="id_module" value="{{$sub->IdModulo}}">
+                                <input type="hidden" name="id_subject" value="{{$sub->IdAsignatura}}">
                                 <button type="submit" class="btn btn-link">
                                     {{$subject->getSubjectById($sub->IdAsignatura)->NombreAsignatura}}
                                 </button>
@@ -48,8 +48,8 @@
                             <form method="POST" 
                             action="{{config('app.url')}}{{config('app.name')}}/module/{{$sub->IdModulo}}/{{strtolower(str_replace(" ", "", $subject->getSubjectById($sub->IdAsignatura)->NombreAsignatura))}}">
                                 @csrf
-                                <input type="hidden" name="module_id" value="{{$sub->IdModulo}}">
-                                <input type="hidden" name="subject_id" value="{{$sub->IdAsignatura}}">
+                                <input type="hidden" name="id_module" value="{{$sub->IdModulo}}">
+                                <input type="hidden" name="id_subject" value="{{$sub->IdAsignatura}}">
                                 <button type="submit" class="btn btn-success" name="accept">Acceder</button>
                             </form>
                         </span>
