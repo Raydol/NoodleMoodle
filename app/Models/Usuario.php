@@ -106,4 +106,22 @@ class Usuario extends Model
 
         return count(DB::select($query, [$id_user])) > 0 ? true : false;
     }
+
+    public function getProfessorsPerSubjectOnModule($id_subject, $id_module) {
+        $query = "SELECT * from usuarios where usuarios.IdRol = 
+        (SELECT roles.Id from roles where roles.NombreRol = 'profesor') and 
+        usuarios.Id in (SELECT usuariosasignaturas.IdUsuario from usuariosasignaturas where 
+        usuariosasignaturas.IdAsignatura = ? and usuariosasignaturas.IdModulo = ?) ";
+
+        return DB::select($query, [$id_subject, $id_module]);
+    }
+
+    public function getStudentsPerSubjectOnModule($id_subject, $id_module) {
+        $query = "SELECT * from usuarios where usuarios.IdRol = 
+        (SELECT roles.Id from roles where roles.NombreRol = 'alumno') and 
+        usuarios.Id in (SELECT usuariosasignaturas.IdUsuario from usuariosasignaturas where 
+        usuariosasignaturas.IdAsignatura = ? and usuariosasignaturas.IdModulo = ?) ";
+
+        return DB::select($query, [$id_subject, $id_module]);
+    }
 }

@@ -89,8 +89,11 @@ Route::get('/module/{idModule}/delete', [ModuleController::class, 'deleteModule'
 //Delete subject
 Route::post('/subject/delete', [SubjectController::class, 'deleteSubject']);
 
-//Subject details
+//Subject details or Subject details with temary
 Route::post('/module/{idModule}/{subjectName}', [SubjectController::class, 'subjectDetails']);
+Route::post('/module/{idModule}/{subjectName}/temary', [SubjectController::class, 'subjectDetails']);
 
+//Subject participants
+Route::post('/module/{idModule}/{subjectName}/participants', [SubjectController::class, 'subjectParticipants']);
 
 

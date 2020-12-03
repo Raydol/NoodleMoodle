@@ -6,8 +6,11 @@ use App\Models\Asignatura;
 use App\Models\AsignaturaModulo;
 use App\Models\Aviso;
 use App\Models\Modulo;
+use App\Models\Rol;
 use App\Models\Usuario;
 use App\Models\UsuarioAsignatura;
+use DateTime;
+use DateTimeZone;
 use Exception;
 use Illuminate\Support\Facades\Redirect;
 
@@ -216,7 +219,7 @@ class SubjectController extends Controller
         return json_encode($subjects);
     }
 
-    //Temario
+    //Temario de la asignatura
     public function subjectDetails() {
         $title = "Asignatura";
 
@@ -226,13 +229,112 @@ class SubjectController extends Controller
         //Instanciamos los modelos que vamos a necesitar
         $user = new Usuario;
         $subject = new Asignatura;
+        $module = new Modulo;
 
         $asignatura = $subject->getSubjectById($id_subject);
+        $modulo = $module->getModuleById($id_module);
 
-        return view('subjectdetails', compact('title', 'id_module', 'asignatura'));
+        return view('subjectdetails', compact('title', 'modulo', 'asignatura'));
     }
 
+    //Participantes de la asignatura
     public function subjectParticipants() {
+        $title = "Participantes";
+
+        $id_module = $_POST['id_module'] ?? "";
+        $id_subject = $_POST['id_subject'] ?? "";
+
+        //Instanciamos los modelos que vamos a necesitar
+        $user = new Usuario;
+        $subject = new Asignatura;
+        $module = new Modulo;
+        $rol = new Rol;
+
+        $asignatura = $subject->getSubjectById($id_subject);
+        $modulo = $module->getModuleById($id_module);
+        $professors = $user->getProfessorsPerSubjectOnModule($id_subject, $id_module);
+        $students = $user->getStudentsPerSubjectOnModule($id_subject, $id_module);
+
+        foreach ($professors as $professor) {
+            $fechaActual = new DateTime('now', new DateTimeZone('Europe/Madrid'));
+            $fechaUltimoAcceso = new DateTime($professor->FechaUltimoAcceso, new DateTimeZone('Europe/Madrid'));
+            $intervalo = $fechaActual->diff($fechaUltimoAcceso);
+            
+            $professor->UltimoAcceso = $this->getTime($intervalo);
+            $professor->Rol = ucwords($rol->getRolById($professor->IdRol));
+        }
+
+        foreach ($students as $student) {
+            $fechaActual = new DateTime('now', new DateTimeZone('Europe/Madrid'));
+            $fechaUltimoAcceso = new DateTime($student->FechaUltimoAcceso, new DateTimeZone('Europe/Madrid'));
+            $intervalo = $fechaActual->diff($fechaUltimoAcceso);
+
+            $student->UltimoAcceso = $this->getTime($intervalo);
+            $student->Rol = ucwords($rol->getRolById($student->IdRol));
+        }
+
+        return view('subjectparticipants', compact('title', 'modulo', 'asignatura', 'professors', 'students'));
+    }
+
+
+
+
+    public function getTime($fecha) {
+        $tiempo = "";
+
+        if($fecha->y > 0) {
+            $tiempo .= $fecha->y;
+         
+            if ($fecha->y == 1)
+                $tiempo .= " año, ";
+            else
+                $tiempo .= " años, ";
+        }
+     
+        //meses
+        if ($fecha->m > 0) {
+            $tiempo .= $fecha->m;
+            
+            if ($fecha->m == 1)
+                $tiempo .= " mes, ";
+            else
+                $tiempo .= " meses, ";
+        }
+     
+        //dias
+        if ($fecha->d > 0) {
+            $tiempo .= $fecha->d;
+         
+        if ($fecha->d == 1)
+            $tiempo .= " día, ";
+        else
+            $tiempo .= " días, ";
+        }
+     
+        //horas
+        if ($fecha->h > 0) {
+            $tiempo .= $fecha->h;
+         
+        if ($fecha->h == 1)
+            $tiempo .= " hora, ";
+        else
+            $tiempo .= " horas, ";
+        }
+     
+        //minutos
+        if ($fecha->i > 0) {
+            $tiempo .= $fecha->i;
+         
+            if($fecha->i == 1)
+                $tiempo .= " minuto ";
+            else
+                $tiempo .= " minutos ";
+        } 
+        
+        $tiempo .= $fecha->s." segundos";
+
+        return $tiempo;
+
 
     }
 
