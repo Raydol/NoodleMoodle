@@ -124,4 +124,14 @@ class Usuario extends Model
 
         return DB::select($query, [$id_subject, $id_module]);
     }
+
+    public function isProfessorOnSubjectInModule($id_user, $id_subject, $id_module) {
+        $query = "select * from usuarios where usuarios.Id = ? and usuarios.IdRol = 
+        (SELECT roles.Id from roles where roles.NombreRol = 'profesor')
+        and usuarios.Id in 
+        (select usuariosasignaturas.IdUsuario from usuariosasignaturas where 
+        usuariosasignaturas.IdAsignatura = ? and usuariosasignaturas.IdModulo = ?)";
+
+        return count(DB::select($query, [$id_user, $id_subject, $id_module])) > 0 ? true : false;
+    }
 }

@@ -28,7 +28,7 @@
     <tbody id="tbody">
       @foreach ($subjects as $subject)
       <tr>
-        <td><a href="javascript:void(0)" class="text-primary">{{$subject->NombreAsignatura}}</a></td>
+        <td>{{$subject->NombreAsignatura}}</td>
         <td>{{$subject->AmountOfModules}}</td>
         <td>{{$subject->AmountOfStudents}}</td>
         <td class="text-center">

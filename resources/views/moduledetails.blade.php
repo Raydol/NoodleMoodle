@@ -32,7 +32,7 @@
                 $subject->Id, 
                 $modulo->Id
                 ))
-                    <form method="POST" action="{{config('app.url')}}{{config('app.name')}}/module/{{$subject->IdModulo}}/{{strtolower(str_replace(" ", "", $subject->NombreAsignatura))}}">
+                    <form method="POST" action="{{config('app.url')}}{{config('app.name')}}/module/{{$subject->IdModulo}}/{{strtolower(str_replace(" ", "", $subject->NombreAsignatura))}}/temary">
                         @csrf
                     <input type="hidden" value="{{$modulo->Id}}" name="id_module">
                     <input type="hidden" value="{{$subject->Id}}" name="id_subject">

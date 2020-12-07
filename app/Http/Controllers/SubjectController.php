@@ -219,6 +219,7 @@ class SubjectController extends Controller
         return json_encode($subjects);
     }
 
+
     //Temario de la asignatura
     public function subjectDetails() {
         $title = "Asignatura";
@@ -233,9 +234,22 @@ class SubjectController extends Controller
 
         $asignatura = $subject->getSubjectById($id_subject);
         $modulo = $module->getModuleById($id_module);
+        $current_user = $user->getUserByEmail($_SESSION['email']);
+        $current_user->isProfessorOnSubjectInModule = $user->isProfessorOnSubjectInModule(
+            $current_user->Id, 
+            $id_subject, 
+            $id_module
+        );
 
-        return view('subjectdetails', compact('title', 'modulo', 'asignatura'));
+        if(is_dir("assets/files/$id_subject$id_module")) {
+            $files = scandir("assets/files/$id_subject$id_module");
+        } else {
+            $files = [];
+        }
+
+        return view('subjectdetails', compact('title', 'modulo', 'asignatura', 'current_user', 'files'));
     }
+
 
     //Participantes de la asignatura
     public function subjectParticipants() {
@@ -334,8 +348,50 @@ class SubjectController extends Controller
         $tiempo .= $fecha->s." segundos";
 
         return $tiempo;
-
-
     }
+
+
+    public function loadFile() {
+
+        $fichero = $_FILES["file"];
+        $id_subject = $_POST['id_subject'];
+        $id_module = $_POST['id_module'];
+        $title = "Archivo subido";
+
+        //Instanciamos los modelos que vamos a necesitar
+        $module = new Modulo;
+        $subject = new Asignatura;
+
+        $asignatura = $subject->getSubjectById($id_subject);
+        $modulo = $module->getModuleById($id_module);
+
+        if(!is_dir("assets/files/$id_subject$id_module")) {
+            mkdir("assets/files/$id_subject$id_module", 0777, true);
+        }
+
+        move_uploaded_file($fichero["tmp_name"], "assets/files/$id_subject$id_module/".$fichero["name"]);
+
+
+        return view("loadfile", compact('title', 'modulo', 'asignatura'));
+    }
+
+    public function deleteFile() {
+        $id_subject = $_POST["id_subject"];
+        $id_module = $_POST["id_module"];
+        $file_name = $_POST["file_name"];
+        $title = "Archivo borrado";
+
+        //Instanciamos los modelos que vamos a necesitar
+        $module = new Modulo;
+        $subject = new Asignatura;
+
+        $asignatura = $subject->getSubjectById($id_subject);
+        $modulo = $module->getModuleById($id_module);
+
+        unlink("assets/files/$id_subject$id_module/$file_name");
+
+        return view("deletefile", compact('title', 'modulo', 'asignatura'));
+    }
+
 
 }

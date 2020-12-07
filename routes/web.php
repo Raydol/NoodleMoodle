@@ -96,4 +96,8 @@ Route::post('/module/{idModule}/{subjectName}/temary', [SubjectController::class
 //Subject participants
 Route::post('/module/{idModule}/{subjectName}/participants', [SubjectController::class, 'subjectParticipants']);
 
+//Load Files
+Route::post('/module/{idModule}/{subjectName}/temary/load', [SubjectController::class, 'loadFile']);
 
+//Delete Files
+Route::post('/module/{idModule}/{subjectName}/temary/delete', [SubjectController::class, 'deleteFile']);

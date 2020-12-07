@@ -27,7 +27,7 @@
                     <span>
                         @if ($usuario->Email == $_SESSION["email"])
                             <form method="POST" class="d-inline"
-                                action="{{config('app.url')}}{{config('app.name')}}/module/{{$sub->IdModulo}}/{{strtolower(str_replace(" ", "", $subject->getSubjectById($sub->IdAsignatura)->NombreAsignatura))}}">
+                                action="{{config('app.url')}}{{config('app.name')}}/module/{{$sub->IdModulo}}/{{strtolower(str_replace(" ", "", $subject->getSubjectById($sub->IdAsignatura)->NombreAsignatura))}}/temary">
                                 @csrf
                                 <input type="hidden" name="id_module" value="{{$sub->IdModulo}}">
                                 <input type="hidden" name="id_subject" value="{{$sub->IdAsignatura}}">
@@ -46,7 +46,7 @@
                     @if ($usuario->Email == $_SESSION["email"])
                         <span class="float-right">
                             <form method="POST" 
-                            action="{{config('app.url')}}{{config('app.name')}}/module/{{$sub->IdModulo}}/{{strtolower(str_replace(" ", "", $subject->getSubjectById($sub->IdAsignatura)->NombreAsignatura))}}">
+                            action="{{config('app.url')}}{{config('app.name')}}/module/{{$sub->IdModulo}}/{{strtolower(str_replace(" ", "", $subject->getSubjectById($sub->IdAsignatura)->NombreAsignatura))}}/temary">
                                 @csrf
                                 <input type="hidden" name="id_module" value="{{$sub->IdModulo}}">
                                 <input type="hidden" name="id_subject" value="{{$sub->IdAsignatura}}">
