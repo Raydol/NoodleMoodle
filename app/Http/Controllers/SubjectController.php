@@ -393,5 +393,25 @@ class SubjectController extends Controller
         return view("deletefile", compact('title', 'modulo', 'asignatura'));
     }
 
+    public function leaveSubject($id_module, $id_subject) {
+        //Instanciamos los modelos que vamos a necesitar
+        $user = new Usuario;
+        $usersubject = new UsuarioAsignatura;
+        $advice = new Aviso;
+
+        //Primero el usuario actual
+        $usuario = $user->getUserByEmail($_SESSION["email"]);
+
+        //Segundo borramos las filas del usuario en la asignatura del módulo en la tabla usuariosasignaturas
+        $usersubject->deleteUserOnSubjectOnModule($usuario->Id, $id_subject, $id_module);
+
+        //Tercero si es profesor, borramos sus avisos de la asignatura en cuestión y del módulo al que pertenece
+        if ($user->isProfessor($usuario->Id)) {
+            $advice->deleteUserAdvicesOnSubjectOnModule($usuario->Id, $id_subject, $id_module);
+        }
+
+        return Redirect::to(config('app.url').config('app.name')."/subjects/$usuario->Email");
+    }
+
 
 }

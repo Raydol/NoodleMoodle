@@ -60,4 +60,13 @@ class UsuarioAsignatura extends Model
         
         return DB::select($query, [$user->Id]);
     }
+
+    public function deleteUserOnSubjectOnModule($id_user, $id_subject, $id_module) {
+        
+        DB::table('usuariosasignaturas')->where('IdUsuario', $id_user)
+        ->where('IdAsignatura', $id_subject)
+        ->where('IdModulo', $id_module)
+        ->delete();
+
+    }
 }

@@ -190,6 +190,12 @@ function leaveModule(id_module) {
     }
 }
 
+function leaveSubject(id_subject, id_module) {
+    if(confirm("¿Está seguro de que desea abandonar esta asignatura?")) {
+        location.href = "/NoodleMoodle/public/module/"+ id_module + "/subject/"+ id_subject + "/leave";
+    }
+}
+
 function deleteModule(id_module) {
     if(confirm("¿Desea eliminar realmente este módulo?")) {
         location.href = "/NoodleMoodle/public/module/" + id_module +"/delete"

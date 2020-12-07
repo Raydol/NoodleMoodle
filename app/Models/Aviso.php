@@ -47,4 +47,11 @@ class Aviso extends Model
     public function deleteAdviceById($id) {
         DB::table('avisos')->where('Id', $id)->delete();
     }
+
+    public function deleteUserAdvicesOnSubjectOnModule($id_user, $id_subject, $id_module) {
+        DB::table('avisos')->where('IdProfesor', $id_user)
+        ->where('IdAsignatura', $id_subject)
+        ->where('IdModulo', $id_module)
+        ->delete();
+    }
 }

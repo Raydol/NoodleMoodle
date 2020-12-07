@@ -28,12 +28,15 @@
     </ol>
   </nav>
 
-<h3>{{$asignatura->NombreAsignatura}} - Temario</h3>
+<h3 class="d-inline">{{$asignatura->NombreAsignatura}} - Temario</h3>
+<button type="button" class="btn btn-outline-primary d-inline ml-4 mb-3" onclick="leaveSubject({{$asignatura->Id}}, {{$modulo->Id}});">
+  <i class="fas fa-sign-out-alt"></i> Abandonar asignatura
+</button>
 
 <!-- Si el usuario es el profesor de la asignatura y del módulo -->
 @if ($current_user->isProfessorOnSubjectInModule)
 
-<form method="POST" action="{{config('app.url')}}{{config('app.name')}}/module/{{$modulo->Id}}/{{strtolower(str_replace(" ", "", $asignatura->NombreAsignatura))}}/temary/load" enctype="multipart/form-data">
+<form method="POST" class="mt-4" action="{{config('app.url')}}{{config('app.name')}}/module/{{$modulo->Id}}/{{strtolower(str_replace(" ", "", $asignatura->NombreAsignatura))}}/temary/load" enctype="multipart/form-data">
   @csrf
   <input type="file" name="file">
   <input type="hidden" name="id_module" value="{{$modulo->Id}}">
@@ -81,5 +84,7 @@
     @endfor
   </tbody>
 </table>
+
+<script src="{{config('app.name')}}/../resources/js/functions.js"></script>
 
 @endsection

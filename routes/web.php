@@ -79,6 +79,9 @@ Route::post('/module/{nombreAsignatura}/validate', [SubjectController::class, 'v
 //Join subject
 Route::post('/module/{nombreAsignatura}/join', [SubjectController::class, 'processActivationCode']);
 
+//Leave subject
+Route::get('/module/{idModule}/subject/{idSubject}/leave', [SubjectController::class, 'leaveSubject']);
+
 //Advices
 Route::get('/advices', [AdviceController::class, 'advices']);
 Route::post('/advice/request', [AdviceController::class, 'processRequest']);
