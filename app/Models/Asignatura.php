@@ -66,4 +66,12 @@ class Asignatura extends Model
         DB::table('asignaturas')->delete($id);
     }
 
+    public function getAllUserSubjects($id_user) {
+        $query = "select * from asignaturas where asignaturas.Id IN 
+        (SELECT usuariosasignaturas.IdAsignatura from usuariosasignaturas 
+        where usuariosasignaturas.IdUsuario = ?)";
+
+        return DB::select($query, [$id_user]);
+    }
+
 }

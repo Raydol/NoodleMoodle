@@ -27,7 +27,7 @@
 <div class="row">
 @foreach ($modules as $module)
 <div class="col-md-2">
-  <div class="card card-cascade wider bg-white shadow-sm" style="width: 18rem;">
+  <div class="card card-cascade wider bg-white shadow-sm mb-1" style="width: 18rem;">
       <div class="view view-cascade overlay">
         <img class="card-img-top ml-5 mt-2 rounded-circle" src="https://pikwizard.com/photos/diary,-sticky-notes,-pencil-and-paper-clip-on-wooden-table--71297efed296e01e1feebb7051751140-m.jpg" style="width: 12rem;" alt="Card image cap">
       </div>

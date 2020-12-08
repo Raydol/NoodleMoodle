@@ -18,8 +18,8 @@
                     <h4>{{$usuario->Nombre}} {{$usuario->Apellidos}}</h4>
                     <p class="text-secondary mb-1">{{$usuario->Rol}}</p>
                     <p class="text-muted font-size-sm">{{$usuario->Ciudad}}, {{$usuario->ComunidadAutonoma}}</p>
-                      <button class="btn btn-primary">Follow</button>
-                      <button class="btn btn-outline-primary">Message</button>
+                      <button class="btn btn-primary">Seguir</button>
+                      <button class="btn btn-outline-primary">Enviar mensaje</button>
                     </div>
                   </div>
                 </div>
@@ -86,7 +86,11 @@
                         <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Módulos</i></h6>
                         <hr>
                         @foreach ($usuario->Modulos as $modulo)
-                            <p><?=$modulo->NombreModulo?></p>
+                            <p>
+                              <a href="{{config('app.url')}}{{config('app.name')}}/module/{{$modulo->Id}}" class="text-primary">
+                                {{ucwords(strtolower($modulo->NombreModulo))}}
+                              </a>
+                            </p>
                         @endforeach 
                     </div>
                   </div>
@@ -94,27 +98,17 @@
                 <div class="col-sm-6 mb-3">
                   <div class="card h-100">
                     <div class="card-body">
-                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6>
-                      <small>Web Design</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>Website Markup</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>One Page</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>Mobile Template</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <small>Backend API</small>
-                      <div class="progress mb-3" style="height: 5px">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
+                      <!-- Comprobación para poner asignaturas que cursa o asignaturas que imparte -->
+                      @if ($usuario->isProfessor)
+                        <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Asignaturas que imparte</i></h6>
+                      @else
+                        <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Asignaturas que cursa</i></h6>
+                      @endif
+                      <hr>
+                      
+                      @foreach ($usuario->asignaturas as $asignatura)
+                          <p>{{ucwords(strtolower($asignatura->NombreAsignatura))}}</p>
+                      @endforeach
                     </div>
                   </div>
                 </div>

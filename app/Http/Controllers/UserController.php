@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Asignatura;
 use App\Models\Modulo;
 use App\Models\Rol;
 use Illuminate\Http\Request;
@@ -178,11 +179,16 @@ class UserController extends Controller
         $user = new Usuario;
         $rol = new Rol;
         $modulo = new Modulo;
+        $subject = new Asignatura;
+
         $usuario = $user->getUserByEmail($email);
         $usuario->Rol = ucwords($rol->getRolById($usuario->IdRol));
         $usuario->FechaPrimerAcceso = date('d-m-Y H:i:s', strtotime($usuario->FechaPrimerAcceso));
         $usuario->FechaUltimoAcceso = date('d-m-Y H:i:s', strtotime($usuario->FechaUltimoAcceso));
         $usuario->Modulos = $modulo->getModulesByUser($usuario->Id);
+        $usuario->isProfessor = $user->isProfessor($usuario->Id);
+        $usuario->asignaturas = $subject->getAllUserSubjects($usuario->Id);
+        
         return view('userprofile', compact('usuario'));
     }
 

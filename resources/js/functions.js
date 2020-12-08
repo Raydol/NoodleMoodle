@@ -41,7 +41,7 @@ function filtrarRol(esPrimeraVez) {
             td10.className += " text-center"
 
             enlacePapelera.setAttribute("href", "javascript:void(0)")
-            enlacePapelera.className += " text-dark"
+            enlacePapelera.className += " text-dark btn btn-outline-dark"
             enlacePapelera.setAttribute("style", "text-decoration: none")
             enlacePapelera.setAttribute("onclick", "deleteUser(" + user.Id +")")
 

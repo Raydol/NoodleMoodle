@@ -27,7 +27,11 @@
       </li>
     </ol>
   </nav>
-<h3>{{$asignatura->NombreAsignatura}} - Participantes</h3>
+
+<h3 class="d-inline">{{$asignatura->NombreAsignatura}} - Participantes</h3>
+<button type="button" class="btn btn-outline-primary d-inline ml-4 mb-3" onclick="leaveSubject({{$asignatura->Id}}, {{$modulo->Id}});">
+  <i class="fas fa-sign-out-alt"></i> Abandonar asignatura
+</button>
 
 <table class="table mt-5 text-center">
     <caption>Profesores</caption>
@@ -84,5 +88,7 @@
         @endforeach
     </tbody>
 </table>
+
+<script src="{{config('app.name')}}/../resources/js/functions.js"></script>
 
 @endsection
