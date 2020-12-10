@@ -9,7 +9,7 @@ class ViewController extends Controller
 
     public function showView() {
         
-        return view('layout');
+        return view('home');
 
 
     }
